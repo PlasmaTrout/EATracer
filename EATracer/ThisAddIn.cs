@@ -29,6 +29,8 @@ namespace EATracer
             pane = this.CustomTaskPanes.Add(control, "EA Tracer");
             pane.Visible = true;
             pane.VisibleChanged += Control_VisibleChanged;
+
+            
         }
 
         private void Control_VisibleChanged(object sender, EventArgs e)

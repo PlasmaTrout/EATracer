@@ -7,8 +7,13 @@ using System.Windows.Forms;
 
 namespace EATracer
 {
+    public delegate void NodeAddedHandler(TreeNode label);
+
     public class TreeLoader
     {
+
+        public event NodeAddedHandler NodeAdded;
+
         public EA.Repository Repository { get; set; }
 
         public TreeLoader(EA.Repository repository)
@@ -34,10 +39,13 @@ namespace EATracer
                 model.Tag = pkg.PackageID;
                 model.ImageIndex = 0;
                 model.SelectedImageIndex = 1;
+                current.Nodes.Add(model);
+
+                NodeAdded?.Invoke(model);
 
                 LoadPackages(pkg, model);
 
-                current.Nodes.Add(model);
+               
                 
             }
         }
@@ -56,6 +64,7 @@ namespace EATracer
                 newNode.SelectedImageIndex = 1;
 
                 current.Nodes.Add(newNode);
+                NodeAdded?.Invoke(newNode);
 
                 if(pkg.Packages.Count > 0)
                 {
@@ -81,9 +90,11 @@ namespace EATracer
                 eNode.Tag = element.ElementID;
                 eNode.ImageIndex = 2;
                 eNode.SelectedImageIndex = 3;
-                current.Nodes.Add(eNode);
 
-                if(element.Elements.Count > 0)
+                current.Nodes.Add(eNode);
+                NodeAdded?.Invoke(eNode);
+
+                if (element.Elements.Count > 0)
                 {
                     LoadElements(element.Elements, eNode);
                 }
