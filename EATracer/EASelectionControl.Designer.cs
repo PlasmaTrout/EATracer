@@ -40,6 +40,9 @@
             this.projectTree = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.generateButton = new System.Windows.Forms.Button();
+            this.radioForwards = new System.Windows.Forms.RadioButton();
+            this.radioBackwards = new System.Windows.Forms.RadioButton();
+            this.radioBoth = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,7 +124,7 @@
             this.generateButton.BackColor = System.Drawing.SystemColors.Highlight;
             this.generateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.generateButton.Location = new System.Drawing.Point(9, 468);
+            this.generateButton.Location = new System.Drawing.Point(9, 504);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(409, 35);
             this.generateButton.TabIndex = 11;
@@ -129,10 +132,46 @@
             this.generateButton.UseVisualStyleBackColor = false;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // radioForwards
+            // 
+            this.radioForwards.AutoSize = true;
+            this.radioForwards.Checked = true;
+            this.radioForwards.Location = new System.Drawing.Point(9, 468);
+            this.radioForwards.Name = "radioForwards";
+            this.radioForwards.Size = new System.Drawing.Size(68, 17);
+            this.radioForwards.TabIndex = 12;
+            this.radioForwards.TabStop = true;
+            this.radioForwards.Text = "Forwards";
+            this.radioForwards.UseMnemonic = false;
+            this.radioForwards.UseVisualStyleBackColor = true;
+            // 
+            // radioBackwards
+            // 
+            this.radioBackwards.AutoSize = true;
+            this.radioBackwards.Location = new System.Drawing.Point(84, 468);
+            this.radioBackwards.Name = "radioBackwards";
+            this.radioBackwards.Size = new System.Drawing.Size(78, 17);
+            this.radioBackwards.TabIndex = 13;
+            this.radioBackwards.Text = "Backwards";
+            this.radioBackwards.UseVisualStyleBackColor = true;
+            // 
+            // radioBoth
+            // 
+            this.radioBoth.AutoSize = true;
+            this.radioBoth.Location = new System.Drawing.Point(169, 468);
+            this.radioBoth.Name = "radioBoth";
+            this.radioBoth.Size = new System.Drawing.Size(47, 17);
+            this.radioBoth.TabIndex = 14;
+            this.radioBoth.Text = "Both";
+            this.radioBoth.UseVisualStyleBackColor = true;
+            // 
             // EASelectionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radioBoth);
+            this.Controls.Add(this.radioBackwards);
+            this.Controls.Add(this.radioForwards);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.projectTree);
             this.Controls.Add(this.statusStrip1);
@@ -159,5 +198,8 @@
         private System.Windows.Forms.TreeView projectTree;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.RadioButton radioForwards;
+        private System.Windows.Forms.RadioButton radioBackwards;
+        private System.Windows.Forms.RadioButton radioBoth;
     }
 }

@@ -6,6 +6,13 @@ namespace EATracer
 {
     public delegate void ReportElementTraversedHandler(string element);
 
+    public enum TableLoadDirection
+    {
+        Forwards,
+        Backwards,
+        Both
+    }
+
     public class TableLoader
     {
 
@@ -13,16 +20,21 @@ namespace EATracer
 
         Dictionary<string, int> completionDictionary = new Dictionary<string, int>();
         private int rows = 0;
+        
 
         public EA.Repository Repository { get;  }
-        public TableLoader(EA.Repository repo)
+
+        public TableLoadDirection Direction { get; set; }
+
+        public TableLoader(EA.Repository repo,TableLoadDirection dir)
         {
             this.Repository = repo;
+            this.Direction = dir;
         }
 
         public void RenderTable(EA.Element element)
         {
-            GetConnections(element, "forward");
+            GetConnections(element, Direction.ToString());
             AddHeaders();
         }
 
@@ -45,8 +57,15 @@ namespace EATracer
                 {
                     completionDictionary.Add(key, 1);
                     AddRow(source, target, traversal, connector);
-                    GetConnections(target, "forwards");
-                    GetConnections(source, "backwards");
+
+                    if (Direction == TableLoadDirection.Forwards || Direction == TableLoadDirection.Both)
+                    {
+                        GetConnections(target, TableLoadDirection.Forwards.ToString());
+                    }
+                    if (Direction == TableLoadDirection.Backwards || Direction == TableLoadDirection.Both)
+                    {
+                        GetConnections(source, TableLoadDirection.Backwards.ToString());
+                    }
                 }
             }
         }

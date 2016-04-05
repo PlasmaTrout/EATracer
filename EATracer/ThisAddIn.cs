@@ -26,7 +26,9 @@ namespace EATracer
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             control = new EASelectionControl();
-            pane = this.CustomTaskPanes.Add(control, "EA Tracer");
+            pane = this.CustomTaskPanes.Add(control, "EA Tracability Report");
+            pane.Width = 450;
+            
             pane.Visible = true;
             pane.VisibleChanged += Control_VisibleChanged;
 

@@ -68,6 +68,18 @@ namespace EATracer
         }
 
        
+        private TableLoadDirection GetDirection()
+        {
+            if (radioBackwards.Checked)
+            {
+                return TableLoadDirection.Backwards;
+            }
+            if (radioForwards.Checked)
+            {
+                return TableLoadDirection.Forwards;
+            }
+            return TableLoadDirection.Both;
+        }
 
         #region Events
         private void button1_Click(object sender, EventArgs e)
@@ -82,7 +94,6 @@ namespace EATracer
             }
         }
 
-
         #endregion
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -95,7 +106,7 @@ namespace EATracer
                 EA.Element element = this.Repository.GetElementByID(int.Parse(selected.Tag.ToString()));
                 statusLabel.Text = "Running Report...";
 
-                TableLoader loader = new TableLoader(this.Repository);
+                TableLoader loader = new TableLoader(this.Repository,this.GetDirection());
                 loader.ReportElementTraversed += Loader_ReportElementTraversed;
                 loader.RenderTable(element);
 
