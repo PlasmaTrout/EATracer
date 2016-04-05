@@ -16,6 +16,8 @@ namespace EATracer
     {
         EA.Repository repos;
         Dictionary<string, int> completionDictionary = new Dictionary<string, int>();
+        private int rows = 0;
+
         public EA.Repository Repository
         {
             get
@@ -98,12 +100,14 @@ namespace EATracer
             sheet.Range["F1"].Value = connector.Type;
             sheet.Range["G1"].Value = connector.Stereotype;
             sheet.Range["H1"].Value = connector.Direction;
+
+            rows++;
            
         }
 
         private void AddHeaders()
         {
-            var sheet = Globals.ThisAddIn.Application.ActiveSheet;
+            Worksheet sheet = Globals.ThisAddIn.Application.ActiveSheet;
             sheet.Range["A1"].EntireRow.Insert(XlInsertShiftDirection.xlShiftDown);
             sheet.Range["A1"].Value = "Source";
             sheet.Range["B1"].Value = "Source Type";
@@ -114,7 +118,16 @@ namespace EATracer
             sheet.Range["G1"].Value = "StereoType";
             sheet.Range["H1"].Value = "Direction";
 
+            rows++;
+
+            sheet.Columns.AutoFit();
+            Range selection = sheet.Range["A1", "H" + rows.ToString()];
+            sheet.ListObjects.AddEx(XlListObjectSourceType.xlSrcRange, selection,null, XlYesNoGuess.xlYes).Name = "Table1";
+            selection.Select();
+            sheet.ListObjects["Table1"].TableStyle = "TableStyleMedium6";
+            //selection.AutoFormat(XlRangeAutoFormat.xlRangeAutoFormat3DEffects1);
             
+
         }
 
         #region Events
@@ -135,6 +148,7 @@ namespace EATracer
 
         private void generateButton_Click(object sender, EventArgs e)
         {
+            rows = 0;
             var selected = projectTree.SelectedNode;
 
             if(selected.ImageIndex > 1)
