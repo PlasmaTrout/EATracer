@@ -36,7 +36,7 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.traceabilityGroup = this.Factory.CreateRibbonGroup();
-            this.button1 = this.Factory.CreateRibbonButton();
+            this.tracerToggleButton = this.Factory.CreateRibbonToggleButton();
             this.tab1.SuspendLayout();
             this.traceabilityGroup.SuspendLayout();
             this.SuspendLayout();
@@ -50,15 +50,17 @@
             // 
             // traceabilityGroup
             // 
-            this.traceabilityGroup.Items.Add(this.button1);
+            this.traceabilityGroup.Items.Add(this.tracerToggleButton);
             this.traceabilityGroup.Label = "Traceability";
             this.traceabilityGroup.Name = "traceabilityGroup";
             // 
-            // button1
+            // tracerToggleButton
             // 
-            this.button1.Label = "Perform Trace";
-            this.button1.Name = "button1";
-            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
+            this.tracerToggleButton.Label = "EA Tracer Pane";
+            this.tracerToggleButton.Name = "tracerToggleButton";
+            this.tracerToggleButton.OfficeImageId = "BusinessFormWizard";
+            this.tracerToggleButton.ShowImage = true;
+            this.tracerToggleButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tracerToggleButton_Click);
             // 
             // EARibbon
             // 
@@ -78,7 +80,7 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup traceabilityGroup;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton tracerToggleButton;
     }
 
     partial class ThisRibbonCollection

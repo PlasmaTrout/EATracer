@@ -13,9 +13,10 @@ namespace EATracer
 
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
-        {
 
+        private void tracerToggleButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.TaskPane.Visible = ((RibbonToggleButton)sender).Checked;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace EATracer
                 }else
                 {
                     repos.CloseFile();
-                    repos.Exit();
+                    projectTree.Nodes.Clear();
                 }
 
                 statusLabel.Text = "Opening Repository...";
@@ -46,61 +46,20 @@ namespace EATracer
                 var opened = repos.OpenFile(path);
                 if (opened)
                 {
-                    EA.Collection coll = repos.Models;
-                    statusLabel.Text = "Loading Models...";
+                    statusLabel.Text = "Loading Tree...";
                     statusStrip1.Refresh();
-                    LoadModelCombo(coll);
-                }
-                else
-                {
-
-                }
-            }
-            catch (Exception e)
-            {
-                repos.CloseFile();
-            }
-        }
-
-        private void LoadModelCombo(EA.Collection coll)
-        {
-            IEnumerator e = coll.GetEnumerator();
-            while (e.MoveNext())
-            {
-                EA.Package element = (EA.Package)e.Current;
-                modelCombo.Items.Add(element.Name);
-            }
-            statusLabel.Text = "Select Model";
-
-        }
-
-        private void RecursePackages(EA.Collection packages)
-        {
-            IEnumerator e = packages.GetEnumerator();
-
-            while (e.MoveNext())
-            {
-                EA.Package package = (EA.Package)e.Current;
-                comboPackage.Items.Add($"{package.Name} | {package.PackageID}");
-                if (package.Packages.Count > 0)
-                {
-                    RecursePackages(package.Packages);
+                    var loader = new TreeLoader(this.Repository);
+                    TreeNode root = loader.BuildTree();
+                    projectTree.Nodes.Add(root);
+                    statusLabel.Text = "Select Node!";         
                 }
             }
-
-            
-        }
-
-        private void LoadElements(EA.Collection elements)
-        {
-            IEnumerator e = elements.GetEnumerator();
-
-            while (e.MoveNext())
+            catch (Exception)
             {
-                EA.Element element = (EA.Element)e.Current;
-                comboElements.Items.Add($"{element.Name} | {element.ElementID}");
+                repos.Exit();
             }
         }
+
 
         private void GetConnections(EA.Element element, string traversal)
         {
@@ -171,37 +130,22 @@ namespace EATracer
             }
         }
 
-        private void comboElements_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string element = comboElements.SelectedItem.ToString();
-            string id = element.Split('|')[1].Trim();
-
-            EA.Element root = this.Repository.GetElementByID(int.Parse(id));
-
-            GetConnections(root, "forward");
-            AddHeaders();
-        }
-
-        private void modelCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            String value = modelCombo.SelectedItem.ToString();
-            statusLabel.Text = "Getting Packages ...";
-            EA.Package package = (EA.Package)repos.Models.GetByName(value);
-            RecursePackages(package.Packages);
-            statusLabel.Text = "Select Package!";
-        }
 
         #endregion
 
-        private void comboPackage_SelectedIndexChanged(object sender, EventArgs e)
+        private void generateButton_Click(object sender, EventArgs e)
         {
-            String value = comboPackage.SelectedItem.ToString();
-            String pkid = value.Split('|')[1].Trim();
-            statusLabel.Text = "Getting Elements...";
-            EA.Package package = (EA.Package)repos.GetPackageByID(int.Parse(pkid));
-            LoadElements(package.Elements);
+            var selected = projectTree.SelectedNode;
 
-            statusLabel.Text = "Select Element!";
+            if(selected.ImageIndex > 1)
+            {
+                statusLabel.Text = "Getting Selected Element....";
+                EA.Element element = this.Repository.GetElementByID(int.Parse(selected.Tag.ToString()));
+                statusLabel.Text = "Running Report...";
+                GetConnections(element, "forward");
+                AddHeaders();
+                statusLabel.Text = "Done!";
+            }
         }
     }
 }
