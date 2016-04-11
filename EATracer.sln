@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EATracer", "EATracer\EATracer.csproj", "{0D6A80CF-EAA9-4C09-9B71-06AD82D7D84C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAWordTracer", "EAWordTracer\EAWordTracer.csproj", "{7C90E0F0-B2F8-4484-9CED-7B202D054D8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0D6A80CF-EAA9-4C09-9B71-06AD82D7D84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6A80CF-EAA9-4C09-9B71-06AD82D7D84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6A80CF-EAA9-4C09-9B71-06AD82D7D84C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C90E0F0-B2F8-4484-9CED-7B202D054D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C90E0F0-B2F8-4484-9CED-7B202D054D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C90E0F0-B2F8-4484-9CED-7B202D054D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C90E0F0-B2F8-4484-9CED-7B202D054D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
